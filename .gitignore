@@ -1,4 +1,3 @@
-
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -18,3 +17,29 @@
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+
+###> Node / Frontend (Prettier, Tailwind, etc.) ###
+/node_modules/
+/dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.eslintcache
+###< Node / Frontend ###
+
+###> IDEs & Fichiers Système ###
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+.DS_Store
+Thumbs.db
+###< IDEs & Fichiers Système ###
+
+###> Base de données (Local dumps) ###
+# Décommente la ligne ci-dessous si tu veux éviter d'envoyer tes exports SQL par erreur sur Git
+# *.sql
+###< Base de données (Local dumps) ###
