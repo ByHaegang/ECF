@@ -1,3 +1,110 @@
+/* --white: #ffffffff; */
+/* --grey-olive: #7f9183ff; */
+/* --olive-wood: #7e583aff; */
+/* --espresso: #511d15ff; */
+
 body {
-    background-color: skyblue;
+    font-family: "Lato", sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #000000;
+    background-color: #ffffff;
+}
+
+/* Typographie pour les titres */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Montserrat", sans-serif;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+}
+
+/* Différenciation des poids selon l'importance */
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: grid;
+
+    grid-template-columns: repeat(8, 1fr);
+    min-height: 100vh;
+}
+main {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 20px;
+}
+
+.a {
+    margin: 20px;
+}
+header {
+    grid-column: 1/-1;
+    background-color: #7f9183;
+}
+header h1 {
+    display: flex;
+    align-items: center;
+}
+
+header h1 a {
+    text-decoration: none;
+    color: #000000;
+}
+header h1 a:hover {
+    color: rgb(2, 13, 71);
+}
+
+.logo {
+    width: 5rem;
+    height: auto;
+}
+
+footer {
+    grid-column: 1/-1;
+    background-color: #7f9183;
+    place-items: center;
+}
+
+.home {
+    color: #511d15;
+    grid-column: 2/8;
+    text-align: center;
+}
+
+/* Page de inscription */
+.register {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+}
+.register h2 {
+    grid-column: 1 / -1;
+    text-align: center;
+}
+.alert {
+    grid-column: 1 / -1;
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}
+
+.register-form {
+    grid-column: 1 / -1;
+    text-align: center;
 }

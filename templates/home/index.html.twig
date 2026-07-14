@@ -1,0 +1,23 @@
+
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<section class="home presentation">
+    <h1>Bienvenue au Restaurant</h1>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi ea ipsa, voluptatum blanditiis maiores velit quos soluta ipsam perspiciatis sunt sit numquam, magnam molestiae sapiente tempora veritatis nesciunt corporis quisquam repellendus iure! Repudiandae, non laborum. Tempore laudantium doloremque, quod molestias fugit nam totam voluptates error fugiat, quos vitae! Eligendi soluta a amet dolorem autem, nostrum odit ex, temporibus nisi sequi ratione quisquam optio, tenetur corrupti quasi illum ut inventore veritatis consequatur esse vel deleniti non quos. Recusandae iure dignissimos temporibus quasi? Nesciunt vitae reprehenderit ullam dolores nisi rerum libero excepturi nobis suscipit quis? Error, magnam voluptate, aliquid commodi, blanditiis nisi suscipit quo odit libero id aperiam unde veritatis quidem! Dignissimos dolore dolorem, quam perferendis at corrupti fugit. Dolor voluptas fugiat suscipit temporibus possimus nulla facilis, minus alias delectus id amet quaerat, quae odit, provident sint eos. Provident illo consequatur porro id iure dolorum nam quam, dolore soluta, unde libero quaerat quasi repellendus iste ipsum neque veniam, voluptatibus expedita nemo nisi nostrum modi quos. Tempora in iure totam tenetur illo accusantium doloremque expedita! Dolorem facere vero tempore excepturi quaerat iste provident similique vitae nobis voluptatibus eligendi perferendis eum sit non, rerum est ipsum porro eius, in quidem soluta. Quis quia eos inventore minima quas quod rerum ratione. Molestias libero fugit sapiente facere, iste eum dolores animi id voluptatibus ratione, culpa deleniti quo a natus. Ea rerum quam eligendi delectus asperiores nobis quos cupiditate autem sequi. Debitis veniam voluptatem neque explicabo soluta, obcaecati vitae est temporibus repudiandae consectetur dignissimos ipsum maiores accusantium illo, eligendi quia minima eos, reprehenderit voluptatibus ducimus non. Officia earum blanditiis dolor impedit vitae? Quasi, earum pariatur sapiente et sint optio aspernatur ducimus rem soluta quaerat incidunt sed nisi in accusamus perferendis, nobis deserunt reprehenderit. Accusamus, sequi? Laudantium quibusdam velit nostrum beatae quia eaque sequi animi adipisci facere asperiores?</p>
+</section>
+
+<section class="home avis">
+    <h2>Ce que nos clients disent</h2>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim exercitationem beatae iusto et ab. Illum, pariatur nihil vero nisi ipsum soluta consequatur beatae ab optio cum sed molestias quae veniam sit corrupti qui saepe ea odio reprehenderit fugiat ipsa quam maiores. Eius voluptatibus adipisci tempora, alias vero voluptate perspiciatis fugit sint maxime consectetur facilis aliquid voluptatum soluta quos similique harum.
+    {% for avis in liste_avis %}
+        <div class="card">
+            <p>{{ avis.description }}</p>
+            <small>Note : {{ avis.note }}</small>
+        </div>
+    {% endfor %}
+</section>
+
+{% endblock %}
