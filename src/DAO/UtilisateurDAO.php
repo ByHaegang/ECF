@@ -10,7 +10,7 @@ class UtilisateurDAO
 
     public function __construct(Connection $connection)
     {
-        // On récupère ton accès natif à PDO
+        // On récupère l'accès natif à PDO
         $this->pdo = $connection->getNativeConnection();
     }
 
@@ -39,6 +39,7 @@ class UtilisateurDAO
         return $result ?: null;
     }
 
+
     /**
      * Récupère un utilisateur via son email (login)
      * @param string $email L'email tapé lors de la connexion
@@ -54,11 +55,25 @@ class UtilisateurDAO
         return $result ?: null;
     }
 
+/**
+ * Récupère le mot de passe (login)
+ * @param string $email email lié au compte utilisateur
+ * @return string|null le mot de passe haché ou null
+ */
+public function getpassword(string $email): ?string
+{
+    $statement = $this->pdo->prepare('SELECT password FROM utilisateur WHERE email = :email');
+    $statement->execute(['email' => $email]);
+
+    $result = $statement->fetch(\PDO::FETCH_ASSOC);
+    return $result ? $result['password'] : null;
+}
+
     public function getUtilisateurByRole(string $roleName): array
     {
-    $sql = 'SELECT u.* FROM utilisateur u
-            INNER JOIN role r ON u.role_id = r.role_id
-            WHERE r.libelle = :roleName';
+    $sql = 'SELECT utilisateur.* FROM utilisateur
+        INNER JOIN role ON utilisateur.role_id = role.role_id
+        WHERE role.libelle = :roleName';
 
     $statement = $this->pdo->prepare($sql);
     $statement->execute(['roleName' => $roleName]);
