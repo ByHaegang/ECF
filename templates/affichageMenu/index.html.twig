@@ -19,14 +19,21 @@
     <div class="searchMenu">
         <form method="POST" data-turbo="false">
             <div class="searchBar">
-                <input type="text" id="search" name="search" placeholder="Rechercher un menu..." value="{{ app.request.request.get('search') }}">
+                <input type="text" id="search" name="search" placeholder="Rechercher un mot clé" value="{{ app.request.request.get('search') }}">
             </div>
             <div class="filtrePrixMax">
+                <label for="prixMax">Prix maximum :</label>
                 <input type="number" id="prixMax" name="prixMax" placeholder="Prix maximum du menu..." value="{{ app.request.request.get('prixMax') }}">
             </div>
-            <div class="filtreFourchettePrix">
-                <input type="number" id="fourchettePrixMin" name="fourchettePrixMin" min="0" placeholder="Prix minimum de la fourchette" value="{{ app.request.request.get('fourchettePrixMin') }}">
-                <input type="number" id="fourchettePrixMax" name="fourchettePrixMax" min="0" placeholder="Prix maximum de la fourchette" value="{{ app.request.request.get('fourchettePrixMax') }}">
+            <div class="fourchettePrix">
+                <div class="filtreFourchettePrix">
+                    <label for="fourchettePrixMin">Prix minimum de la fourchette :</label>
+                    <input type="number" id="fourchettePrixMin" name="fourchettePrixMin" min="0" placeholder="Prix minimum de la fourchette" value="{{ app.request.request.get('fourchettePrixMin') }}">
+                </div>
+                <div class="filtreFourchettePrix">
+                    <label for="fourchettePrixMax">Prix maximum de la fourchette :</label>
+                    <input type="number" id="fourchettePrixMax" name="fourchettePrixMax" min="0" placeholder="Prix maximum de la fourchette" value="{{ app.request.request.get('fourchettePrixMax') }}">
+                </div>
             </div>
             <div class="filtreRegime">
                 <label for="regime">Régime</label>

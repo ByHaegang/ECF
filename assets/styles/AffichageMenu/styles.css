@@ -1,3 +1,103 @@
+/* Formulaire de recherche */
+.affichageMenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+}
+
+.affichageMenu form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #7e583a;
+    border: 3px solid #511d15;
+    padding: 30px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.affichageMenu form label {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.affichageMenu form input,
+.affichageMenu form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #511d15;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.fourchettePrix {
+    display: flex;
+    gap: 10px;
+}
+
+.fourchettePrix .filtreFourchettePrix {
+    flex: 1;
+}
+
+.btn-search {
+    background-color: #511d15;
+    color: #ffffff;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+/* Cartes */
+.affichageMenu .menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 40px;
+    width: 100%;
+    max-width: 100rem;
+}
+
+.affichageMenu .carte {
+    background-color: #ffffff;
+    border: 2px solid #7e583a;
+    border-radius: 10px;
+    padding: 20px;
+    width: 25rem;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s;
+}
+
+.affichageMenu .carte:hover {
+    transform: translateY(-5px);
+    border-color: #511d15;
+}
+
+.btn-details,
+.btn-commander {
+    background-color: #511d15;
+    color: #ffffff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-details:hover,
+.btn-commander:hover {
+    background-color: #7e583a;
+}
+
+/*Bouton details*/
+
 .hide {
     display: none;
 }
