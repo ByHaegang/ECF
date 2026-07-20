@@ -83,20 +83,35 @@ public function getpassword(string $email): ?string
     
     }
 
-    public function ajouterUtilisateur(string $prenom, string $gsm, string $email, string $adresse, string $ville, string $pays, string $passwordHache): bool
+    /**
+     * Ajoute un nouvel utilisateur à la base de données.
+     *
+     * @param string $nom /Le nom de famille de l'utilisateur.
+     * @param string $prenom /Le prénom de l'utilisateur.
+     * @param string $gsm Le /numéro de téléphone (GSM).
+     * @param string $email /L'adresse e-mail de l'utilisateur.
+     * @param string $adresse /L'adresse postale.
+     * @param string $ville /La ville de résidence.
+     * @param string $pays /Le pays de résidence.
+     * @param string $passwordHache /Le mot de passe haché (via password_hash()).
+     * 
+     * @return bool Retourne true si l'insertion a réussi, false en cas d'erreur.
+     */
+    public function ajouterUtilisateur(string $nom, string $prenom, string $gsm, string $email, string $adresse, string $ville, string $pays, string $passwordHache): bool
     {
-        $sql = "INSERT INTO utilisateur (prenom, telephone, email, adresse_postale, ville, pays, password, role_id) 
-                VALUES (:prenom, :gsm, :email, :adresse, :ville, :pays, :hashedPassword, '3')";
+        $sql = "INSERT INTO utilisateur (nom, prenom, telephone, email, adresse_postale, ville, pays, password, role_id) 
+                VALUES (:nom, :prenom, :gsm, :email, :adresse, :ville, :pays, :hashedPassword, '0')";
 
         $statement = $this->pdo->prepare($sql);
 
         return $statement->execute([
-            ':prenom'   => $prenom,
-            ':gsm'      => $gsm,
-            ':email'    => $email,
-            ':adresse'  => $adresse,
-            ':ville'    => $ville,
-            ':pays'      => $pays,
+            ':nom' => $nom,
+            ':prenom' => $prenom,
+            ':gsm' => $gsm,
+            ':email' => $email,
+            ':adresse' => $adresse,
+            ':ville' => $ville,
+            ':pays' => $pays,
             ':hashedPassword' => $passwordHache
         ]);
     }

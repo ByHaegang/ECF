@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title%}Espace Commande{% endblock %}
+
+{% block body %}
+<div class="espace-commande">
+        {% for message in app.flashes('Attention') %}
+            <div class='echec'>
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('success') %}
+            <div class="reussite">
+                {{ message }}
+            </div>
+        {% endfor %}
+</div>
+    <form method="POST" data-turbo="false">
+        <div class="name">
+            <label for="name">Nom :</label>
+            <input type="text" id="name" name="name" placeholder="Nom" value="{% if app.session.get('user_nom') %}{{ app.session.get('user_nom') }}{% endif %}" required>
+        </div>
+        <div class="email">
+            <label for="email">Email :</label>
+            <input type="text" id="email" name="email" placeholder="Email" value="{% if app.session.get('user_email') %}{{ app.session.get('user_email') }}{% endif %}" required>
+        </div>
+        <div class="prenom">
+            <label for="prenom">Prénom :</label>
+            <input type="text" id="prenom" name="prenom" placeholder="prenom" value="{% if app.session.get('user_prenom') %}{{ app.session.get('user_prenom') }}{% endif %}" required>
+        </div>
+        <div class="heure-date-prestation">
+            <label for="heurePrestation">Heure de la prestation :</label>
+            <input type="time" id="heurePrestation" name="heurePrestation" placeholder="AAAA-MM-JJ" value="" required>
+            <label for="datePrestation">/ Date de la prestation :</label>
+            <input type="date" id="datePrestation" name="datePrestation" placeholder="HH:MM" value="" required>
+
+        </div>
+        <div class="lieu-prestation">
+            <label for="villePrestation">Ville dans laquelle la prestation aura lieu :</label>
+            <input type="text" id="villePrestation" name="villePrestation" placeholder="Ville" value="" required>
+        </div>
+        <div class="gsm">
+            <label for="gsm">Numéro de téléphone :</label>
+            <input type="tel" id="gsm" name="gsm" placeholder="" value="" required>
+        </div>
+        <div class="menu">
+            <label for="menu">Menu :</label>
+                <select id="menu" name="menu">
+                    <option>Tous les menus</option>
+                    {% for menu in menus %}
+                        <option value="{{ menu.menu_id }}" 
+                                data-min="{{ menu.nombre_personne_minimum }}"
+                                {# SI l'id du menu est égal à l'id sélectionné reçu en GET, on le sélectionne d'office #}
+                                {% if menu_id_selectionne == menu.menu_id %} selected {% endif %}>
+                            {{ menu.titre }}
+                        </option>
+                    {% endfor %}
+                </select>
+        </div>
+        <div class="nombre-personne">
+        <label for="">Nombre de personne minimum :</label>
+            <input type="number" id="nombrePersonne" name="nombrePersonne" min="0" placeholder="" required>
+        </div>
+        <button type="submit" class="btn-form">Commander</button>
+    </form>
+</div>
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="module" src="{{ asset('nombrePersonneMin.js') }}"></script>
+{% endblock %}
+
+{% endblock %}

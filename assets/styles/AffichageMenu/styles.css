@@ -1,0 +1,16 @@
+.hide {
+    display: none;
+}
+
+.menu-details {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-left: 4px solid #6c757d;
+    font-size: 0.9em;
+}
+
+.btn-details {
+    margin-top: 10px;
+    cursor: pointer;
+}

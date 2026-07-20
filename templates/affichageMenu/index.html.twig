@@ -1,59 +1,85 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/AffichageMenu/styles.css') }}">
+{% endblock %}
+
 {% block title %}Affichage Menu {% endblock %}
 
 {% block body %}
 
 <div class="affichageMenu">
     <h2>Carte des menus</h2>
+        {% for message in app.flashes('Attention') %}
+            <div class='attention'>
+                {{ message }}
+            </div>
+        {% endfor %}
     <div class="searchMenu">
         <form method="POST" data-turbo="false">
-    <div class="searchBar">
-        <input type="text" id="search" name="search" placeholder="Rechercher un menu..." value="{{ app.request.request.get('search') }}">
-    </div>
-    <div class="filtrePrixMax">
-        <input type="number" id="prixMax" name="prixMax" placeholder="Prix maximum du menu..." value="{{ app.request.request.get('prixMax') }}">
-    </div>
-    <div class="filtreFourchettePrix">
-        <input type="number" id="fourchettePrixMin" name="fourchettePrixMin" placeholder="Prix minimum de la fourchette" value="{{ app.request.request.get('fourchettePrixMin') }}">
-        <input type="number" id="fourchettePrixMax" name="fourchettePrixMax" placeholder="Prix maximum de la fourchette" value="{{ app.request.request.get('fourchettePrixMax') }}">
-    </div>
-    <div class="filtreRegime">
-        <label for="regime">Régime</label>
-        <select id="regime" name="regime_id">
-            <option value="">Tous les régimes</option>
-            {% for regime in regimes %}
-                <option value="{{ regime.regime_id }}" {% if app.request.request.get('regime_id') == regime.regime_id %}selected{% endif %}>
-                    {{ regime.libelle }}
-                </option>
-            {% endfor %}
-        </select>
-    </div>
-    <div class="filtreTheme">
-        <label for="theme">Theme</label>
-        <select id="theme" name="theme_id">
-            <option value="">Tous les themes</option>
-            {% for theme in themes %}
-                <option value="{{ theme.theme_id }}" {% if app.request.request.get('theme_id') == theme.theme_id %}selected{% endif %}>
-                    {{ theme.libelle }}
-                </option>
-            {% endfor %}
-        </select>
-    </div>
-    <button type="submit" class="btn-search">Rechercher</button>
-</form>
+            <div class="searchBar">
+                <input type="text" id="search" name="search" placeholder="Rechercher un menu..." value="{{ app.request.request.get('search') }}">
+            </div>
+            <div class="filtrePrixMax">
+                <input type="number" id="prixMax" name="prixMax" placeholder="Prix maximum du menu..." value="{{ app.request.request.get('prixMax') }}">
+            </div>
+            <div class="filtreFourchettePrix">
+                <input type="number" id="fourchettePrixMin" name="fourchettePrixMin" min="0" placeholder="Prix minimum de la fourchette" value="{{ app.request.request.get('fourchettePrixMin') }}">
+                <input type="number" id="fourchettePrixMax" name="fourchettePrixMax" min="0" placeholder="Prix maximum de la fourchette" value="{{ app.request.request.get('fourchettePrixMax') }}">
+            </div>
+            <div class="filtreRegime">
+                <label for="regime">Régime</label>
+                <select id="regime" name="regime_id">
+                    <option value="">Tous les régimes</option>
+                    {% for regime in regimes %}
+                        <option value="{{ regime.regime_id }}" {% if app.request.request.get('regime_id') == regime.regime_id %}selected{% endif %}>
+                            {{ regime.libelle }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="filtreTheme">
+                <label for="theme">Theme</label>
+                <select id="theme" name="theme_id">
+                    <option value="">Tous les themes</option>
+                    {% for theme in themes %}
+                        <option value="{{ theme.theme_id }}" {% if app.request.request.get('theme_id') == theme.theme_id %}selected{% endif %}>
+                            {{ theme.libelle }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        <button type="submit" class="btn-search">Rechercher</button>
+    </form>
     </div>
     <div class="menu">
         {% for menu in menus %}
             <div class="carte">
-                <h3>{{ menu.titre}}</h3>
-                <p>Plat pour {{ menu.nombre_personne_minimum}}.</p>
-                <p>{{ menu.description}}</p>
-                <p>Prix : {{ menu.prix_par_personne}} €</p>
+                <h3>{{ menu.titre }}</h3>
+                <p>Plat pour {{ menu.nombre_personne_minimum }}.</p>
+                <p>{{ menu.description }}</p>
+                <p>Prix : {{ menu.prix_par_personne }} €</p>
+            <button class="btn-details" type="button">Détails</button>
+            <div class="menu-details hide">
+                <p><strong>Thème :</strong> {{ menu.theme_nom }}</p>
+                <p><strong>Régime :</strong> {{ menu.regime_nom }}</p>
+                <p><strong>Allergènes :</strong> 
+                    {{ menu.allergenes | default('Aucun ou non renseignés') }}
+                </p>
+                <a href="{{ path('app_espacecommande', {'menu_id': menu.menu_id}) }}" class="btn-commander">
+                    Commander
+                </a>
+            </div>
             </div>
         {% endfor %}
     </div>
 </div>
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="module" src="{{ asset('boutonDetails.js') }}"></script>
+{% endblock %}
 
 {% endblock %}
 

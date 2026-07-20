@@ -39,7 +39,8 @@ class LoginController extends AbstractController
 
                 // On stocke les informations de l'utilisateur (son ID et son Email)
                 $session->set('user_email', $utilisateurExistant['email']);
-                $session->set('user_prenom', $utilisateurExistant['prenom']);;
+                $session->set('user_prenom', $utilisateurExistant['prenom']);
+                $session->set('user_nom', $utilisateurExistant['nom']);
                 $this->addFlash('Bravo','Connextion Réussie');
                 return $this->redirectToRoute('app_home'); 
             } else {

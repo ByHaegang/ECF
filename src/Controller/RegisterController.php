@@ -18,6 +18,7 @@ class RegisterController extends AbstractController
         if ($request->isMethod('POST')) { 
             
             // Récupération des données du formulaire
+            $nom = $request->request->get('nom');
             $prenom = $request->request->get('prenom');
             $gsm = $request->request->get('gsm');
             $email = $request->request->get('email');
@@ -27,7 +28,7 @@ class RegisterController extends AbstractController
             $password = $request->request->get('password');
 
             // Vérification de sécurité de base : aucun champ vide
-            if (empty($prenom) || empty($gsm) || empty($email) || empty($adresse) || empty($ville) || empty($pays) || empty($password)) {
+            if (empty($nom) || empty($prenom) || empty($gsm) || empty($email) || empty($adresse) || empty($ville) || empty($pays) || empty($password)) {
                 $this->addFlash('Attention', 'Tous les champs ne sont pas remplis.');
                 return $this->redirectToRoute('app_register');
             }
@@ -56,7 +57,7 @@ class RegisterController extends AbstractController
             // Envoi des données à la base de données via le DAO
             try {
                 // On appelle la fonction du DAO pour insérer l'utilisateur
-                $utilisateur->ajouterUtilisateur($prenom, $gsm, $email, $adresse, $ville, $pays, $HashedPassword);
+                $utilisateur->ajouterUtilisateur($nom, $prenom, $gsm, $email, $adresse, $ville, $pays, $HashedPassword);
 
                 // TODO: Envoi du mail de bienvenue ici si besoin
                 
