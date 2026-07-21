@@ -75,6 +75,9 @@
         "symfony/polyfill-php82": "*"
     },
     "scripts": {
+        "compile": [
+            "php bin/console asset-map:compile"
+        ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd",
