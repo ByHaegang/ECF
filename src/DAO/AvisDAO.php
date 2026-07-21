@@ -31,7 +31,7 @@ class AvisDAO
      */
     public function getAvisValides() : array
     {
-      $statement = $this->pdo->query('SELECT * FROM avis WHERE statut = "validé"');
+      $statement = $this->pdo->query("SELECT * FROM avis WHERE statut = 'validé'");
       return$statement->fetchall(\PDO::FETCH_ASSOC);
     }
 

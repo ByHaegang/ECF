@@ -27,7 +27,7 @@ class LoginController extends AbstractController
 
             $utilisateurExistant = $utilisateur->getUtilisateurByEmail($email);
             if ($utilisateurExistant === null) {
-                $this->addFlash('Cette adresse e-mail n\'est pas associée à un compte créé.');
+                $this->addFlash('Attention','Cette adresse e-mail n\'est pas associée à un compte créé.');
                 return $this->redirectToRoute('app_login');
             }
 

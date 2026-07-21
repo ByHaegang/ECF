@@ -22,18 +22,18 @@ class MenuDAO
     public function getAllMenus(): array
     {
         $sql = "SELECT menu.menu_id, menu.titre, menu.description, menu.prix_par_personne, 
-        menu.nombre_personne_minimum, menu.quantite_restante,
-        theme.libelle AS theme_nom, regime.libelle AS regime_nom,
-        GROUP_CONCAT(DISTINCT allergene.libelle SEPARATOR ', ') AS allergenes
-        
-        FROM menu
-        INNER JOIN theme ON menu.theme_id = theme.theme_id
-        INNER JOIN regime ON menu.regime_id = regime.regime_id
-        LEFT JOIN propose ON menu.menu_id = propose.menu_id
-        LEFT JOIN plat ON propose.plat_id = plat.plat_id
-        LEFT JOIN contient ON plat.plat_id = contient.plat_id
-        LEFT JOIN allergene ON contient.allergene_id = allergene.allergene_id
-        GROUP BY menu.menu_id";
+                menu.nombre_personne_minimum, menu.quantite_restante,
+                theme.libelle AS theme_nom, regime.libelle AS regime_nom,
+                STRING_AGG(DISTINCT allergene.libelle, ', ') AS allergenes
+                
+                FROM menu
+                INNER JOIN theme ON menu.theme_id = theme.theme_id
+                INNER JOIN regime ON menu.regime_id = regime.regime_id
+                LEFT JOIN propose ON menu.menu_id = propose.menu_id
+                LEFT JOIN plat ON propose.plat_id = plat.plat_id
+                LEFT JOIN contient ON plat.plat_id = contient.plat_id
+                LEFT JOIN allergene ON contient.allergene_id = allergene.allergene_id
+                GROUP BY menu.menu_id, theme.libelle, regime.libelle";
 
         $stmt = $this->pdo->query($sql);
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -62,18 +62,18 @@ class MenuDAO
     public function getMenusByFilter(array $criteres): array
     {
         $sql = "SELECT menu.menu_id, menu.titre, menu.description, menu.prix_par_personne, 
-        menu.nombre_personne_minimum, menu.quantite_restante,
-        theme.libelle AS theme_nom, regime.libelle AS regime_nom,
-        GROUP_CONCAT(DISTINCT allergene.libelle SEPARATOR ', ') AS allergenes
-        
-        FROM menu
-        INNER JOIN theme ON menu.theme_id = theme.theme_id
-        INNER JOIN regime ON menu.regime_id = regime.regime_id
-        LEFT JOIN propose ON menu.menu_id = propose.menu_id
-        LEFT JOIN plat ON propose.plat_id = plat.plat_id
-        LEFT JOIN contient ON plat.plat_id = contient.plat_id
-        LEFT JOIN allergene ON contient.allergene_id = allergene.allergene_id
-        GROUP BY menu.menu_id";
+                menu.nombre_personne_minimum, menu.quantite_restante,
+                theme.libelle AS theme_nom, regime.libelle AS regime_nom,
+                STRING_AGG(DISTINCT allergene.libelle, ', ') AS allergenes
+                
+                FROM menu
+                INNER JOIN theme ON menu.theme_id = theme.theme_id
+                INNER JOIN regime ON menu.regime_id = regime.regime_id
+                LEFT JOIN propose ON menu.menu_id = propose.menu_id
+                LEFT JOIN plat ON propose.plat_id = plat.plat_id
+                LEFT JOIN contient ON plat.plat_id = contient.plat_id
+                LEFT JOIN allergene ON contient.allergene_id = allergene.allergene_id
+                GROUP BY menu.menu_id, theme.libelle, regime.libelle";
 
         $conditions = [];
         $params = [];
