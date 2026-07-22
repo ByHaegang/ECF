@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\DAO\MenuDAO;
 use App\DAO\UtilisateurDAO;
 use App\DAO\CommandeDAO;
@@ -18,11 +17,10 @@ class EspaceCommandeController extends AbstractController
     #[Route('/EspaceCommande', name: 'app_espacecommande')]
     public function index(Request $request, CommandeDAO $commande, MenuDAO $menuDAO, UtilisateurDAO $user, MailerInterface $mailer): Response
     {
-
         $menuIdSelectionne = $request->query->get('menu_id');
         $menus = $menuDAO->getAllMenus();
 
-        if ($request->isMethod('Post')) {
+        if ($request->isMethod('POST')) { // Remplacé 'Post' par 'POST' pour respecter les standards
 
             // Récupération informations de la commande
             $name = $request->request->get('name');
@@ -35,32 +33,48 @@ class EspaceCommandeController extends AbstractController
             $menuId = $request->request->get('menu');
             $nombrePersonne = $request->request->get('nombrePersonne');
 
-            if (empty($name) || empty($email) || empty($prenom) || empty($adressePrestation) || empty($heurePrestation) || empty($datePrestation) || empty($gsm) || empty($menu) || empty($nombrePersonne)) {
-            $this->addFlash('Attention', 'Tous les champs ne sont pas remplis.');
+            if (empty($name) || empty($email) || empty($prenom) || empty($adressePrestation) || empty($heurePrestation) || empty($datePrestation) || empty($gsm) || empty($menuId) || empty($nombrePersonne)) {
+                
+                $this->addFlash('attention', 'Tous les champs ne sont pas remplis.');
+                
+                return $this->render('espaceCommande/index.html.twig', [
+                    'menus' => $menus,
+                    'menu_id_selectionne' => $menuIdSelectionne
+                ]);
+            }
 
+            // Si tous les champs sont remplis, on continue le traitement
             $prixUnitaireCentimes = $menuDAO->getMenuPriceById($menuId);
             $prixTotalCentimes = $prixUnitaireCentimes * $nombrePersonne;
 
             $userData = $user->getUtilisateurByEmail($email);
-            $userId = $userData ? $userData['id'] : null;
+            
+            $userId = $userData ? $userData['utilisateur_id'] : null;
 
             if ($userId === null) {
-            $this->addFlash('Attention', 'Utilisateur non existant. Veuillez vous inscrire ou vérifier votre email.');
+                $this->addFlash('attention', 'Utilisateur non existant. Veuillez vous inscrire ou vérifier votre email.');
+                return $this->render('espaceCommande/index.html.twig', [
+                    'menus' => $menus,
+                    'menu_id_selectionne' => $menuIdSelectionne
+                ]);
+            }
+
+            // Insertion de la commande
+            $commande->ajouterCommande($userId, $menuId, $nombrePersonne, $datePrestation, $heurePrestation, $prixTotalCentimes);
+            
+            $this->addFlash('success', 'Votre commande a été enregistrée avec succès !');
+
+            // On re-rend la page du formulaire avec les menus
             return $this->render('espaceCommande/index.html.twig', [
-                'menus' => $menus
+                'menus' => $menus,
+                'menu_id_selectionne' => null // On réinitialise la sélection après une commande réussie
             ]);
         }
 
-            $commande->ajouterCommande($userId, $menuId, $nombrePersonne, $datePrestation, $heurePrestation, $prixTotalCentimes);
-            
-            // 2. On RE-REND la page du formulaire directement
-            return $this->render('espaceCommande/index.html.twig', ['menus' => $menus]);
-            }
-        }
+        // Affichage de la page par défaut
         return $this->render('espaceCommande/index.html.twig', [
             'menus' => $menus,
             'menu_id_selectionne' => $menuIdSelectionne
-            ]);
-
+        ]);
     }
 }
