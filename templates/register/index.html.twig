@@ -1,56 +1,58 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/register/styles.css') }}">
+{% endblock %}
+
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-  <div class="register">
-    <h2 class="form-title">Inscription</h2>
-    {# Affichage des messages d'erreur ou de succès de Symfony #}
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="alert alert-{{ label }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
+<div class="register">
+  <h2 class="form-title">Inscription</h2>
+  {# Affichage des messages d'erreur ou de succès de Symfony #}
+  {% for label, messages in app.flashes %}
+      {% for message in messages %}
+          <div class="{{ label }}">
+              {{ message }}
+          </div>
+      {% endfor %}
+  {% endfor %}
 
     <form method="POST" class="register-form">
-      <div class="form-group">
-      <label for="nom">Nom :</label>
-      <input type="text" id="nom" name="nom" required>
-      </div>
-      <div class="form-group">
-      <label for="prenom">Prenom :</label>
-      <input type="text" id="prenom" name="prenom" required>
-      </div>
-      <div class="form-group">
-        <label for="gsm">Numéro de téléphone :</label>
-        <input type="tel" id="gsm" name="gsm" required>
-      </div>
-      <div class="form-group">
-        <label for="email">Email :</label>
-        <input type="email" id="email" name="email" required>
-      </div>
-      <div class="form-group">
-        <label for="adresse">Adresse :</label>
-        <input type="text" id="adresse" name="adresse" required>
-      </div>
-      <div class="form-group">
-        <label for="ville">Ville :</label>
-        <input type="text" id="ville" name="ville" required>
-      </div>
-      <div class="form-group">
-        <label for="pays">Pays :</label>
-        <input type="text" id="pays" name="pays" required>
-      <div class="form-group">
-        <label for="password">Mot de passe :</label>
-        <input type="password" id="password" name="password" required>
-        <br>
-        <small>10 caractères minimum (au moins 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial)</small>
-      </div>
-      <button type="submit" class="btn-form">S'inscrire</button>
-    </form>
-
-  </div>
+        <label for="nom">Nom :</label>
+        <input type="text" id="nom" name="nom" required>
+        <div class="form-group">
+        <label for="prenom">Prenom :</label>
+        <input type="text" id="prenom" name="prenom" required>
+        </div>
+        <div class="form-group">
+          <label for="gsm">Numéro de téléphone :</label>
+          <input type="tel" id="gsm" name="gsm" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email :</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="adresse">Adresse :</label>
+          <input type="text" id="adresse" name="adresse" required>
+        </div>
+        <div class="form-group">
+          <label for="ville">Ville :</label>
+          <input type="text" id="ville" name="ville" required>
+        </div>
+        <div class="form-group">
+          <label for="pays">Pays :</label>
+          <input type="text" id="pays" name="pays" required>
+        <div class="form-group">
+          <label for="password">Mot de passe :</label>
+          <input type="password" id="password" name="password" required>
+          <br>
+          <small>10 caractères minimum (au moins 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial)</small>
+          </br>
+        <button type="submit" class="btn-form">S'inscrire</button>
+      </form>
+</div>
 
 {% endblock %}

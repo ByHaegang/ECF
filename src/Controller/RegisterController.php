@@ -29,7 +29,7 @@ class RegisterController extends AbstractController
 
             // Vérification de sécurité de base : aucun champ vide
             if (empty($nom) || empty($prenom) || empty($gsm) || empty($email) || empty($adresse) || empty($ville) || empty($pays) || empty($password)) {
-                $this->addFlash('Attention', 'Tous les champs ne sont pas remplis.');
+                $this->addFlash('attention', 'Tous les champs ne sont pas remplis.');
                 return $this->redirectToRoute('app_register');
             }
 
@@ -41,13 +41,13 @@ class RegisterController extends AbstractController
             $hasSpecialChar = preg_match('/[^a-zA-Z0-9]/', $password);
 
             if (!$isLengthValid || !$hasUppercase || !$hasLowercase || !$hasDigit || !$hasSpecialChar) {
-                $this->addFlash('Attention', 'Le mot de passe ne respecte pas tous les critères de sécurité.');
+                $this->addFlash('attention', 'Le mot de passe ne respecte pas tous les critères de sécurité.');
                 return $this->redirectToRoute('app_register');
             }
 
             $utilisateurExistant = $utilisateur->getUtilisateurByEmail($email);
             if ($utilisateurExistant !== null) {
-                $this->addFlash('Attention', 'Cette adresse e-mail est déjà associée à un compte.');
+                $this->addFlash('attention', 'Cette adresse e-mail est déjà associée à un compte.');
                 return $this->redirectToRoute('app_register');
             }
 
@@ -61,11 +61,11 @@ class RegisterController extends AbstractController
 
                 // TODO: Envoi du mail de bienvenue ici si besoin
                 
-                $this->addFlash('Bravo', 'Votre compte a bien été créé !');
-                return $this->redirectToRoute('app_home'); 
+                $this->addFlash('success', 'Votre compte a bien été créé !');
+                return $this->redirectToRoute('app_login'); 
 
             } catch (\Exception $e) {
-                $this->addFlash('Attention', "Erreur de transmission à la base de données : " . $e->getMessage());
+                $this->addFlash('attention', "Erreur de transmission à la base de données : " . $e->getMessage());
                 return $this->redirectToRoute('app_register');
             }
         }

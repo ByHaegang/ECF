@@ -1,0 +1,46 @@
+.register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+}
+
+.register form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #7e583a;
+    border: 3px solid #511d15;
+    padding: 30px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.register form label {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.register form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #511d15;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.register form small {
+    color: #ffffff;
+    font-weight: small;
+}
+
+.btn-form {
+    background-color: #511d15;
+    color: #ffffff;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}

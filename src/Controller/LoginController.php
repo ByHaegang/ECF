@@ -21,13 +21,13 @@ class LoginController extends AbstractController
 
             // Vérification de sécurité de base : aucun champ vide
             if (empty($email) || empty($password)) {
-                $this->addFlash('Attention', 'Tous les champs ne sont pas remplis.');
+                $this->addFlash('attention', 'Tous les champs ne sont pas remplis.');
                 return $this->redirectToRoute('app_login');
             }
 
             $utilisateurExistant = $utilisateur->getUtilisateurByEmail($email);
             if ($utilisateurExistant === null) {
-                $this->addFlash('Attention','Cette adresse e-mail n\'est pas associée à un compte créé.');
+                $this->addFlash('attention','Cette adresse e-mail n\'est pas associée à un compte créé.');
                 return $this->redirectToRoute('app_login');
             }
 
@@ -41,10 +41,10 @@ class LoginController extends AbstractController
                 $session->set('user_email', $utilisateurExistant['email']);
                 $session->set('user_prenom', $utilisateurExistant['prenom']);
                 $session->set('user_nom', $utilisateurExistant['nom']);
-                $this->addFlash('Bravo','Connextion Réussie');
+                $this->addFlash('success','Connextion Réussie !');
                 return $this->redirectToRoute('app_home'); 
             } else {
-                $this->addFlash('Attention', "Erreur de connexion à la base de données");
+                $this->addFlash('attention', "Identifiants ou mot de passe incorrects.");
                 return $this->redirectToRoute('app_login');
             }
 

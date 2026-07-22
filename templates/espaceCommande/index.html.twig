@@ -9,6 +9,7 @@
 
 {% block body %}
 <div class="espace-commande">
+<h2>Passer une commande</h2>
     {% for message in app.flashes('Attention') %}
         <div class='echec'>{{ message }}</div>
     {% endfor %}
