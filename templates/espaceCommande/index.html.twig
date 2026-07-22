@@ -10,11 +10,12 @@
 {% block body %}
 <div class="espace-commande">
 <h2>Passer une commande</h2>
-    {% for message in app.flashes('Attention') %}
-        <div class='echec'>{{ message }}</div>
-    {% endfor %}
-    {% for message in app.flashes('success') %}
-        <div class="reussite">{{ message }}</div>
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
     {% endfor %}
 
     <form method="POST" data-turbo="false">

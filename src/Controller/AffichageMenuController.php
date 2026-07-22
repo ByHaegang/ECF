@@ -21,7 +21,7 @@ class AffichageMenuController extends AbstractController
             $menus = $menuDAO->getMenusByFilter($criteres);
 
         if ( empty($menus)) {
-            $this->AddFlash('Attention','Désolé, aucun menu ne satisfait les filtres.');
+            $this->AddFlash('attention','Désolé, aucun menu ne satisfait les filtres.');
         }
 
         } else {

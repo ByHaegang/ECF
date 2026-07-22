@@ -11,11 +11,13 @@
 
 <div class="affichageMenu">
     <h2>Carte des menus</h2>
-        {% for message in app.flashes('Attention') %}
-            <div class='attention'>
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+            <div class="{{ label }}">
                 {{ message }}
             </div>
         {% endfor %}
+    {% endfor %}
     <div class="searchMenu">
         <form method="POST" data-turbo="false">
             <div class="searchBar">
