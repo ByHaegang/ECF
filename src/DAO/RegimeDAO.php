@@ -15,14 +15,14 @@ class RegimeDAO
     }
 
     /**
-     * Recupère tous les régimes dans la table regime
+     * Récupère tous les régimes dans la table regime
+     * 
      * @return array La liste de tous les régimes (tableau associatif)
-    */
-
+     */
     public function getAllRegime(): array
     {
         $stmt = $this->pdo->query('SELECT * FROM regime');
-        $regimes = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        return $regimes;
+        
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

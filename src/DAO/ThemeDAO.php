@@ -15,14 +15,12 @@ class ThemeDAO
     }
 
     /**
-     * Recupère tous les régimes dans la table theme
-     * @return array La liste de tous les themes (tableau associatif)
-    */
-
+     * Récupère tous les thèmes de la table theme
+     * @return array La liste de tous les thèmes (tableaux associatifs)
+     */
     public function getAllTheme(): array
     {
         $stmt = $this->pdo->query('SELECT * FROM theme');
-        $themes = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        return $themes;
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

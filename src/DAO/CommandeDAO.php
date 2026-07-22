@@ -32,8 +32,9 @@ class CommandeDAO
         $prixLivraison = 0; 
         $statut = 'En attente'; 
 
-$sql = "INSERT INTO commande (date_commande, date_prestation, heure_livraison, prix_menu, nombre_personne, prix_livraison, statut, pret_materiel, restitution_materiel, utilisateur_id) 
-                VALUES (:date_commande, :date_prestation, :heure_livraison, :prix_menu, :nombre_personne, :prix_livraison, :statut, 0, 0, :utilisateur_id)";
+        // CORRECTION : On remplace les entiers 0 par les mots-clés SQL "FALSE"
+        $sql = "INSERT INTO commande (date_commande, date_prestation, heure_livraison, prix_menu, nombre_personne, prix_livraison, statut, pret_materiel, restitution_materiel, utilisateur_id) 
+                VALUES (:date_commande, :date_prestation, :heure_livraison, :prix_menu, :nombre_personne, :prix_livraison, :statut, FALSE, FALSE, :utilisateur_id)";
 
         $statement = $this->pdo->prepare($sql);
 
@@ -41,11 +42,11 @@ $sql = "INSERT INTO commande (date_commande, date_prestation, heure_livraison, p
             'date_commande'   => $dateCommande,
             'date_prestation' => $datePrestation,
             'heure_livraison' => $heurePrestation,
-            'prix_menu' => $prixMenuEnCentimes,
+            'prix_menu'       => $prixMenuEnCentimes,
             'nombre_personne' => $nombrePersonne,
-            'prix_livraison' => $prixLivraison,
-            'statut' => $statut,
-            'utilisateur_id' => $utilisateurId
+            'prix_livraison'  => $prixLivraison,
+            'statut'          => $statut,
+            'utilisateur_id'  => $utilisateurId
         ]);
     }
 }

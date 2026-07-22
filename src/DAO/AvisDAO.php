@@ -21,7 +21,7 @@ class AvisDAO
 
     public function getAllAvis() : array
     {
-      $statement = $this->pdo->query('SELECT * FROM avis');
+      $statement = $this->pdo->query("SELECT * FROM avis");
       return $statement->fetchall(\PDO::FETCH_ASSOC);
       }
 
@@ -32,7 +32,7 @@ class AvisDAO
     public function getAvisValides() : array
     {
       $statement = $this->pdo->query("SELECT * FROM avis WHERE statut = 'validé'");
-      return$statement->fetchall(\PDO::FETCH_ASSOC);
+      return $statement->fetchall(\PDO::FETCH_ASSOC);
     }
 
     

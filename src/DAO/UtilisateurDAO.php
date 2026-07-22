@@ -39,7 +39,6 @@ class UtilisateurDAO
         return $result ?: null;
     }
 
-
     /**
      * Récupère un utilisateur via son email (login)
      * @param string $email L'email tapé lors de la connexion
@@ -55,52 +54,55 @@ class UtilisateurDAO
         return $result ?: null;
     }
 
-/**
- * Récupère le mot de passe (login)
- * @param string $email email lié au compte utilisateur
- * @return string|null le mot de passe haché ou null
- */
-public function getpassword(string $email): ?string
-{
-    $statement = $this->pdo->prepare('SELECT password FROM utilisateur WHERE email = :email');
-    $statement->execute(['email' => $email]);
+    /**
+     * Récupère le mot de passe (login)
+     * @param string $email email lié au compte utilisateur
+     * @return string|null le mot de passe haché ou null
+     */
+    public function getPassword(string $email): ?string
+    {
+        $statement = $this->pdo->prepare('SELECT password FROM utilisateur WHERE email = :email');
+        $statement->execute(['email' => $email]);
 
-    $result = $statement->fetch(\PDO::FETCH_ASSOC);
-    return $result ? $result['password'] : null;
-}
+        $result = $statement->fetch(\PDO::FETCH_ASSOC);
+        return $result ? $result['password'] : null;
+    }
 
+    /**
+     * Récupère les utilisateurs par le libellé de leur rôle
+     * @param string $roleName Le nom du rôle (ex: 'Utilisateur')
+     * @return array
+     */
     public function getUtilisateurByRole(string $roleName): array
     {
-    $sql = 'SELECT utilisateur.* FROM utilisateur
-        INNER JOIN role ON utilisateur.role_id = role.role_id
-        WHERE role.libelle = :roleName';
+        $sql = 'SELECT utilisateur.* FROM utilisateur
+                INNER JOIN role ON utilisateur.role_id = role.role_id
+                WHERE role.libelle = :roleName';
 
-    $statement = $this->pdo->prepare($sql);
-    $statement->execute(['roleName' => $roleName]);
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(['roleName' => $roleName]);
 
-    return $statement->fetchAll(\PDO::FETCH_ASSOC);
-
-    
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
      * Ajoute un nouvel utilisateur à la base de données.
      *
-     * @param string $nom /Le nom de famille de l'utilisateur.
-     * @param string $prenom /Le prénom de l'utilisateur.
-     * @param string $gsm Le /numéro de téléphone (GSM).
-     * @param string $email /L'adresse e-mail de l'utilisateur.
-     * @param string $adresse /L'adresse postale.
-     * @param string $ville /La ville de résidence.
-     * @param string $pays /Le pays de résidence.
-     * @param string $passwordHache /Le mot de passe haché (via password_hash()).
+     * @param string $nom Le nom de famille de l'utilisateur.
+     * @param string $prenom Le prénom de l'utilisateur.
+     * @param string $gsm Le numéro de téléphone (GSM).
+     * @param string $email L'adresse e-mail de l'utilisateur.
+     * @param string $adresse L'adresse postale.
+     * @param string $ville La ville de résidence.
+     * @param string $pays Le pays de résidence.
+     * @param string $passwordHache Le mot de passe haché (via password_hash()).
      * 
      * @return bool Retourne true si l'insertion a réussi, false en cas d'erreur.
      */
     public function ajouterUtilisateur(string $nom, string $prenom, string $gsm, string $email, string $adresse, string $ville, string $pays, string $passwordHache): bool
     {
         $sql = "INSERT INTO utilisateur (nom, prenom, telephone, email, adresse_postale, ville, pays, password, role_id) 
-                VALUES (:nom, :prenom, :gsm, :email, :adresse, :ville, :pays, :hashedPassword, '0')";
+                VALUES (:nom, :prenom, :gsm, :email, :adresse, :ville, :pays, :hashedPassword, 2)";
 
         $statement = $this->pdo->prepare($sql);
 
@@ -116,5 +118,3 @@ public function getpassword(string $email): ?string
         ]);
     }
 }
-
-
