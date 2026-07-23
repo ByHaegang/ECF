@@ -13,8 +13,15 @@ class LoginController extends AbstractController
     #[Route('/login', name: 'app_login')]
     public function login(Request $request, UtilisateurDAO $utilisateur): Response
     { 
-        if ($request->isMethod('POST')) { 
-            
+        if ($request->isMethod('POST')) 
+            {
+        
+        if (!$this->isCsrfTokenValid('login-form', $request->request->get('_token'))) {
+                $this->addFlash('attention', 'Requête invalide ou session expirée (Erreur CSRF).');
+                return $this->redirectToRoute('app_login');
+            }
+
+
             // Récupération des données du formulaire
             $email = $request->request->get('email');
             $password = $request->request->get('password');
@@ -41,6 +48,7 @@ class LoginController extends AbstractController
                 $session->set('user_email', $utilisateurExistant['email']);
                 $session->set('user_prenom', $utilisateurExistant['prenom']);
                 $session->set('user_nom', $utilisateurExistant['nom']);
+                $session->set('user_role', $utilisateurExistant['role_id']);
                 $this->addFlash('success','Connextion Réussie !');
                 return $this->redirectToRoute('app_home'); 
             } else {

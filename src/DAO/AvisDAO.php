@@ -6,7 +6,7 @@ use Doctrine\DBAL\Connection;
 
 class AvisDAO
 {
-      private \PDO $pdo;
+    private \PDO $pdo;
 
     public function __construct(Connection $connection)
     {
@@ -21,9 +21,15 @@ class AvisDAO
 
     public function getAllAvis() : array
     {
-      $statement = $this->pdo->query("SELECT * FROM avis");
-      return $statement->fetchall(\PDO::FETCH_ASSOC);
-      }
+    $sql = "SELECT avis.note, avis.description, avis.statut, utilisateur.nom, utilisateur.prenom FROM avis 
+        INNER JOIN utilisateur ON avis.utilisateur_id = utilisateur.utilisateur_id";
+
+
+    $statement = $this->pdo->prepare("$sql");
+    $statement->execute();
+
+    return $statement->fetchall(\PDO::FETCH_ASSOC);
+    }
 
     /**
      * Rècupère les avis validés
@@ -31,8 +37,15 @@ class AvisDAO
      */
     public function getAvisValides() : array
     {
-      $statement = $this->pdo->query("SELECT * FROM avis WHERE statut = 'validé'");
-      return $statement->fetchall(\PDO::FETCH_ASSOC);
+    $sql = "SELECT avis.note, avis.description, avis.statut, utilisateur.nom, utilisateur.prenom FROM avis 
+        INNER JOIN utilisateur ON avis.utilisateur_id = utilisateur.utilisateur_id
+        WHERE avis.statut = 'Validé'";
+
+
+    $statement = $this->pdo->prepare($sql);
+    $statement->execute();
+    
+    return $statement->fetchall(\PDO::FETCH_ASSOC);
     }
 
     

@@ -1,0 +1,52 @@
+.accueil {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 40px;
+    gap: 25px;
+}
+
+.home-presentation {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #7e583a;
+    border: 3px solid #511d15;
+    padding: 30px;
+    border-radius: 10px;
+    width: 40vw;
+    max-width: 50vw;
+}
+
+.home-presentation h1 {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.home-presentation p {
+    color: #ffffff;
+    font-weight: medium;
+}
+
+.home-avis {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #7e583a;
+    border: 3px solid #511d15;
+    padding: 30px;
+    border-radius: 10px;
+    width: 50vw;
+    max-width: 40vw;
+}
+
+.home-avis h2,
+.home-avis h3 {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.card {
+    color: #ffffff;
+    font-weight: medium;
+}

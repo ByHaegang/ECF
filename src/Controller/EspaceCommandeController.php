@@ -17,10 +17,18 @@ class EspaceCommandeController extends AbstractController
     #[Route('/EspaceCommande', name: 'app_espacecommande')]
     public function index(Request $request, CommandeDAO $commande, MenuDAO $menuDAO, UtilisateurDAO $user, MailerInterface $mailer): Response
     {
+
         $menuIdSelectionne = $request->query->get('menu_id');
         $menus = $menuDAO->getAllMenus();
 
-        if ($request->isMethod('POST')) { // Remplacé 'Post' par 'POST' pour respecter les standards
+        if ($request->isMethod('POST')) 
+            {
+            
+            if (!$this->isCsrfTokenValid('espaceCommande-form', $request->request->get('_token'))) {
+                $this->addFlash('attention', 'Requête invalide ou session expirée (Erreur CSRF).');
+                return $this->redirectToRoute('app_espacecommande');
+            }
+
 
             // Récupération informations de la commande
             $name = $request->request->get('name');

@@ -20,7 +20,9 @@ class UtilisateurDAO
      */
     public function getAllUtilisateurs(): array
     {
-        $statement = $this->pdo->query('SELECT * FROM utilisateur');
+        $statement = $this->pdo->prepare('SELECT * FROM utilisateur');
+        $statement->execute();
+
         return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 

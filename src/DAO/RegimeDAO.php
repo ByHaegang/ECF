@@ -21,8 +21,9 @@ class RegimeDAO
      */
     public function getAllRegime(): array
     {
-        $stmt = $this->pdo->query('SELECT * FROM regime');
+        $statement = $this->pdo->prepare('SELECT * FROM regime');
+        $statement->execute();
         
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

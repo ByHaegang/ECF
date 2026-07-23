@@ -15,8 +15,14 @@ class RegisterController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UtilisateurDAO $utilisateur, MailerInterface $mailer): Response
     { 
-        if ($request->isMethod('POST')) { 
+        if ($request->isMethod('POST')) 
+            {
             
+            if (!$this->isCsrfTokenValid('register-form', $request->request->get('_token'))) {
+                $this->addFlash('attention', 'Requête invalide ou session expirée (Erreur CSRF).');
+                return $this->redirectToRoute('app_register');
+            }
+
             // Récupération des données du formulaire
             $nom = $request->request->get('nom');
             $prenom = $request->request->get('prenom');

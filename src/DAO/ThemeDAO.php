@@ -20,7 +20,9 @@ class ThemeDAO
      */
     public function getAllTheme(): array
     {
-        $stmt = $this->pdo->query('SELECT * FROM theme');
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $statement = $this->pdo->prepare('SELECT * FROM theme');
+        $statement->execute();
+
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

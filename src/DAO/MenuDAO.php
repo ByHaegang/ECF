@@ -20,7 +20,6 @@ class MenuDAO
      */
     public function getAllMenus(): array
     {
-        // STRING_AGG est parfait ici pour Postgres !
         $sql = "SELECT menu.menu_id, menu.titre, menu.description, menu.prix_par_personne, 
                 menu.nombre_personne_minimum, menu.quantite_restante,
                 theme.libelle AS theme_nom, regime.libelle AS regime_nom,
@@ -35,8 +34,10 @@ class MenuDAO
                 LEFT JOIN allergene ON contient.allergene_id = allergene.allergene_id
                 GROUP BY menu.menu_id, theme.libelle, regime.libelle";
 
-        $stmt = $this->pdo->query($sql);
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute();
+
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**
@@ -46,11 +47,10 @@ class MenuDAO
      */
     public function getMenuPriceById(int $menu_id): int
     {
-        $stmt = $this->pdo->prepare("SELECT prix_par_personne FROM menu WHERE menu_id = :menu_id");
-        
-        $stmt->execute(['menu_id' => $menu_id]);
+        $statement = $this->pdo->prepare("SELECT prix_par_personne FROM menu WHERE menu_id = :menu_id");
+        $statement->execute(['menu_id' => $menu_id]);
 
-        $result = $stmt->fetchColumn();
+        $result = $statement->fetchColumn();
         return (int) $result;
     }
 
@@ -61,7 +61,6 @@ class MenuDAO
      */
     public function getMenusByFilter(array $criteres): array
     {
-        // CORRECTION : On retire la clause GROUP BY de la chaîne de départ
         $sql = "SELECT menu.menu_id, menu.titre, menu.description, menu.prix_par_personne, 
                 menu.nombre_personne_minimum, menu.quantite_restante,
                 theme.libelle AS theme_nom, regime.libelle AS regime_nom,
@@ -121,9 +120,9 @@ class MenuDAO
 
         $sql .= " GROUP BY menu.menu_id, theme.libelle, regime.libelle";
 
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($params);
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute($params);
 
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

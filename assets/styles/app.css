@@ -43,6 +43,13 @@ body {
     margin: 0;
 }
 
+body {
+    background-image: url("../images/brown-wooden-textured-flooring-background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
 /* ALERTE: Success et échec*/
 
 .success {
