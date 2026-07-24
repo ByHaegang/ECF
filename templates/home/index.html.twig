@@ -11,14 +11,21 @@
 		<div class="home-presentation">
 			<h1>
 				{% if app.session.get('user_prenom') %}
-					<p>Bienvenue
-						{{ app.session.get('user_prenom') }}
-						!</p>
+					Bonjour
+					{{ app.session.get('user_prenom') }},
 				{% else %}
-					<p>Bonjour visiteur !</p>
+					Bonjour visiteur,
 				{% endif %}
-			</h1>
-			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi ea ipsa, voluptatum blanditiis maiores velit quos soluta ipsam perspiciatis sunt sit numquam, magnam molestiae sapiente tempora veritatis nesciunt corporis quisquam repellendus iure! Repudiandae, non laborum. Tempore laudantium doloremque, quod molestias fugit nam totam voluptates error fugiat, quos vitae! Eligendi soluta a amet dolorem autem, nostrum odit ex, temporibus nisi sequi ratione quisquam optio, tenetur corrupti quasi illum ut inventore veritatis consequatur esse vel deleniti non quos. Recusandae iure dignissimos temporibus quasi? Nesciunt vitae reprehenderit ullam dolores nisi rerum libero excepturi nobis suscipit quis? Error, magnam voluptate, aliquid commodi, blanditiis nisi suscipit quo odit libero id aperiam unde veritatis quidem! Dignissimos dolore dolorem, quam perferendis at corrupti fugit. Dolor voluptas fugiat suscipit temporibus possimus nulla facilis, minus alias delectus id amet quaerat, quae odit, provident sint eos. Provident illo consequatur porro id iure dolorum nam quam, dolore soluta, unde libero quaerat quasi repellendus iste ipsum neque veniam, voluptatibus expedita nemo nisi nostrum modi quos. Tempora in iure totam tenetur illo accusantium doloremque expedita! Dolorem facere vero tempore excepturi quaerat iste provident similique vitae nobis voluptatibus eligendi perferendis eum sit non, rerum est ipsum porro eius, in quidem soluta. Quis quia eos inventore minima quas quod rerum ratione. Molestias libero fugit sapiente facere, iste eum dolores animi id voluptatibus ratione, culpa deleniti quo a natus. Ea rerum quam eligendi delectus asperiores nobis quos cupiditate autem sequi. Debitis veniam voluptatem neque explicabo soluta, obcaecati vitae est temporibus repudiandae consectetur dignissimos ipsum maiores accusantium illo, eligendi quia minima eos, reprehenderit voluptatibus ducimus non. Officia earum blanditiis dolor impedit vitae? Quasi, earum pariatur sapiente et sint optio aspernatur ducimus rem soluta quaerat incidunt sed nisi in accusamus perferendis, nobis deserunt reprehenderit. Accusamus, sequi? Laudantium quibusdam velit nostrum beatae quia eaque sequi animi adipisci facere asperiores?</p>
+				bienvenue chez Vite &amp; Gourmand : L'art de recevoir à la bordelaise</h1>
+			<div class="text-presentation">
+				<h2></h2>
+				<h3>25 ans de passion, de partage et de gourmandise.</h3>
+				<p>Depuis un quart de siècle, Julie et José mettent leur savoir-faire au service de vos plus beaux moments. Installée au cœur de Bordeaux, notre entreprise familiale vous accompagne dans l'organisation de toutes vos réceptions.</p>
+				<h3>L'exigence et le professionnalisme au cœur de notre métier</h3>
+				<p>Forte de ses 25 années d'expérience, notre équipe s'engage à vous fournir une prestation culinaire irréprochable. De la sélection de nos produits jusqu'à la livraison, nous mettons un point d'honneur à allier rigueur, ponctualité et créativité. Votre satisfaction et la réussite de votre événement sont nos priorités absolues.</p>
+				<h3>Des créations culinaires pour toutes les occasions</h3>
+				<p>Qu'il s'agisse d'un simple repas convivial, d'une grande réunion de famille ou des repas festifs de Noël et de Pâques, nous avons la formule qu'il vous faut. Parce que vos envies changent, notre carte ne reste jamais figée : nos menus sont en constante évolution pour vous proposer des plats de saison, savoureux et adaptés à tous vos besoins.</p>
+			</div>
 		</div>
 
 		<div class="home-avis">

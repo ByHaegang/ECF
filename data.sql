@@ -131,14 +131,14 @@ INSERT INTO theme (theme_id, libelle) VALUES
 (5, 'Street Food');
 
 INSERT INTO utilisateur (utilisateur_id, email, password, nom, prenom, telephone, ville, pays, adresse_postale, role_id) VALUES
-(1, 'jean.dupont@mail.com', '$2y$13$FictifHashPourExemple123456789', 'Dupont', 'Jean', '0601020304', 'Bordeaux', 'France', '12 Rue de la Rousselle', 2),
-(2, 'marie.curie@mail.com', '$2y$13$FictifHashPourExemple123456789', 'Curie', 'Marie', '0611223344', 'Mérignac', 'France', '45 Avenue de la Marne', 2),
-(3, 'lucas.martin@mail.com', '$2y$13$FictifHashPourExemple123456789', 'Martin', 'Lucas', '0677889900', 'Bordeaux', 'France', '8 Rue Sainte-Catherine', 2);
+(2, 'jean.dupont@mail.com', '$2y$13$FictifHashPourExemple123456789', 'Dupont', 'Jean', '0601020304', 'Bordeaux', 'France', '12 Rue de la Rousselle', 2),
+(3, 'marie.curie@mail.com', '$2y$13$FictifHashPourExemple123456789', 'Curie', 'Marie', '0611223344', 'Mérignac', 'France', '45 Avenue de la Marne', 2),
+(4, 'lucas.martin@mail.com', '$2y$13$FictifHashPourExemple123456789', 'Martin', 'Lucas', '0677889900', 'Bordeaux', 'France', '8 Rue Sainte-Catherine', 2);
 
 INSERT INTO avis (avis_id, note, description, statut, utilisateur_id) VALUES
-(1, 5, 'Prestation incroyable pour notre repas de Noël !', 'Validé', 1),
+(1, 5, 'Prestation incroyable pour notre repas de Noël !', 'Validé', 3),
 (2, 4, 'Très bon menu végétarien, livraison à l''heure.', 'Validé', 2),
-(3, 5, 'Le buffet d''anniversaire était parfait, merci José.', 'Validé', 1);
+(3, 5, 'Le buffet d''anniversaire était parfait, merci José.', 'Validé', 3);
 
 INSERT INTO menu (menu_id, titre, nombre_personne_minimum, prix_par_personne, regime, description, quantite_restante, theme_id, regime_id) VALUES
 (1, 'Menu Terroir', 2, 2550, 'Omnivore', 'Entrée, plat et dessert traditionnels', 50, 1, 1),
