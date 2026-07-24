@@ -42,6 +42,14 @@
     font-weight: medium;
 }
 
+.home-avis {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
 .home-avis h2,
 .home-avis h3 {
     color: #ffffff;
@@ -51,4 +59,36 @@
 .card {
     color: #ffffff;
     font-weight: medium;
+}
+
+/*Scroll barre (trouver sur un site Bootstrap*/
+
+/* Pour Firefox */
+.home-avis {
+    scrollbar-width: thin;
+    scrollbar-color: #ffffff transparent;
+}
+
+/* Pour Chrome, Edge, Safari (WebKit) */
+
+/* Largeur de la barre globale */
+.home-avis::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Le "rail" (le fond de la barre) */
+.home-avis::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+}
+
+/* L'ascenseur (la partie à cliquer) */
+.home-avis::-webkit-scrollbar-thumb {
+    background: #ffffff;
+    border-radius: 10px;
+}
+
+/* L'ascenseur au survol de la souris */
+.home-avis::-webkit-scrollbar-thumb:hover {
+    background: gray;
 }
