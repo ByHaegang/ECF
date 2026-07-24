@@ -5,6 +5,10 @@
     padding: 40px;
 }
 
+.login h2 {
+    color: #ffffff;
+}
+
 .login form {
     display: flex;
     flex-direction: column;

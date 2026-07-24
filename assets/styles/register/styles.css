@@ -5,6 +5,10 @@
     padding: 40px;
 }
 
+.register h2 {
+    color: #ffffff;
+}
+
 .register form {
     display: flex;
     flex-direction: column;

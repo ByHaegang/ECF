@@ -6,6 +6,10 @@
     padding: 40px;
 }
 
+.affichageMenu h2 {
+    color: #ffffff;
+}
+
 .affichageMenu form {
     display: flex;
     flex-direction: column;

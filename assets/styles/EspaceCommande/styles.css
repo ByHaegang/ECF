@@ -5,6 +5,10 @@
     padding: 40px;
 }
 
+.espace-commande h2 {
+    color: #ffffff;
+}
+
 .espace-commande form {
     display: flex;
     flex-direction: column;
