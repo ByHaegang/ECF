@@ -41,6 +41,15 @@ class EspaceCommandeController extends AbstractController
             $menuId = $request->request->get('menu');
             $nombrePersonne = $request->request->get('nombrePersonne');
 
+            if ( $menuId === 'Tous les menus') {
+                $this->addFlash('attention', 'Veuillez sélectionner un menu.');
+
+                return $this->render('espaceCommande/index.html.twig', [
+                    'menus' => $menus,
+                    'menu_id_selectionne' => $menuIdSelectionne
+                ]);
+            };
+
             if (empty($name) || empty($email) || empty($prenom) || empty($adressePrestation) || empty($heurePrestation) || empty($datePrestation) || empty($gsm) || empty($menuId) || empty($nombrePersonne)) {
                 
                 $this->addFlash('attention', 'Tous les champs ne sont pas remplis.');
