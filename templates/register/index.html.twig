@@ -11,8 +11,6 @@
 {% block body %}
 	<div class="register">
 		<h2 class="form-title">Inscription</h2>
-
-		{# Affichage des messages d'erreur ou de succès de Symfony #}
 		{% for label, messages in app.flashes %}
 			{% for message in messages %}
 				<div class="{{ label }}">

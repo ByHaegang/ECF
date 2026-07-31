@@ -10,7 +10,6 @@ class AvisDAO
 
     public function __construct(Connection $connection)
     {
-        // On récupère l'accès natif à PDO
         $this->pdo = $connection->getNativeConnection();
     }
 
@@ -29,6 +28,21 @@ class AvisDAO
     $statement->execute();
 
     return $statement->fetchall(\PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Récupère les avis par utilisateur
+     * @param int $utilisateurId 
+     * @return array La liste de tous les avis de cet utilisateur (tableaux associatifs)
+     */
+    public function getAvisParUtilisateur(int $utilisateurId): array
+    {
+        $sql = "SELECT * FROM avis WHERE utilisateur_id = :id";
+
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute(['id' => $utilisateurId]);
+
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     /**

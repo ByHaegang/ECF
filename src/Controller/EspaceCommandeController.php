@@ -84,7 +84,7 @@ class EspaceCommandeController extends AbstractController
             // On re-rend la page du formulaire avec les menus
             return $this->render('espaceCommande/index.html.twig', [
                 'menus' => $menus,
-                'menu_id_selectionne' => null // On réinitialise la sélection après une commande réussie
+                'menu_id_selectionne' => null
             ]);
         }
 

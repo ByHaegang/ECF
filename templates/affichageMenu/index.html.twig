@@ -68,7 +68,7 @@
                 <h3>{{ menu.titre }}</h3>
                 <p>Plat pour {{ menu.nombre_personne_minimum }}.</p>
                 <p>{{ menu.description }}</p>
-                <p>Prix : {{ menu.prix_par_personne }} €</p>
+                <p>Prix : {{ (menu.prix_par_personne /100) }} €</p>
             <button class="btn-details" type="button">Détails</button>
             <div class="menu-details hide">
                 <p><strong>Thème :</strong> {{ menu.theme_nom }}</p>
@@ -84,11 +84,6 @@
         {% endfor %}
     </div>
 </div>
-
-{% block javascripts %}
-    {{ parent() }}
-    <script type="module" src="{{ asset('boutonDetails.js') }}"></script>
-{% endblock %}
 
 {% endblock %}
 

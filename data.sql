@@ -1,4 +1,6 @@
+ -- =========================================================================
 -- 1. CRÉATION DES TABLES INDÉPENDANTES
+-- =========================================================================
 CREATE TABLE role (
     role_id INT PRIMARY KEY NOT NULL,
     libelle VARCHAR(50)
@@ -32,7 +34,9 @@ CREATE TABLE regime (
     libelle VARCHAR(50)
 );
 
+-- =========================================================================
 -- 2. CRÉATION DES TABLES DÉPENDANTES
+-- =========================================================================
 CREATE TABLE utilisateur (
     utilisateur_id SERIAL PRIMARY KEY NOT NULL,
     email VARCHAR(255),
@@ -44,6 +48,7 @@ CREATE TABLE utilisateur (
     pays VARCHAR(50),
     adresse_postale VARCHAR(255),
     role_id INT NOT NULL,
+    actif BOOLEAN DEFAULT TRUE,
     FOREIGN KEY (role_id) REFERENCES role(role_id)
 );
 
@@ -73,7 +78,17 @@ CREATE TABLE commande (
     pret_materiel BOOLEAN,
     restitution_materiel BOOLEAN,
     utilisateur_id INT NOT NULL,
+    motif_annulation TEXT,
+    mode_contact VARCHAR(100),
     FOREIGN KEY (utilisateur_id) REFERENCES utilisateur(utilisateur_id)
+);
+
+CREATE TABLE suivi_commande (
+    suivi_id SERIAL PRIMARY KEY NOT NULL,
+    commande_id INT NOT NULL,
+    statut VARCHAR(50) NOT NULL,
+    date_modification TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+    FOREIGN KEY (commande_id) REFERENCES commande(commande_id) ON DELETE CASCADE
 );
 
 CREATE TABLE avis (
@@ -85,7 +100,9 @@ CREATE TABLE avis (
     FOREIGN KEY (utilisateur_id) REFERENCES utilisateur(utilisateur_id)
 );
 
+-- =========================================================================
 -- 3. CRÉATION DES TABLES DE LIAISON
+-- =========================================================================
 CREATE TABLE commande_menu (
     commande_id INT NOT NULL,
     menu_id INT NOT NULL,
@@ -110,7 +127,9 @@ CREATE TABLE contient (
     FOREIGN KEY (allergene_id) REFERENCES allergene(allergene_id)
 );
 
--- 4. INSERTIONS
+-- =========================================================================
+-- 4. INSERTIONS DE RÉFÉRENCE ET DE TEST
+-- =========================================================================
 INSERT INTO role (role_id, libelle) VALUES
 (1, 'Visiteur'),
 (2, 'Utilisateur'),
@@ -130,10 +149,10 @@ INSERT INTO theme (theme_id, libelle) VALUES
 (4, 'Gastronomique'),
 (5, 'Street Food');
 
-INSERT INTO utilisateur (utilisateur_id, email, password, nom, prenom, telephone, ville, pays, adresse_postale, role_id) VALUES
-(2, 'jean.dupont@mail.com', '$2y$13$FictifHashPourExemple123456789', 'Dupont', 'Jean', '0601020304', 'Bordeaux', 'France', '12 Rue de la Rousselle', 2),
-(3, 'marie.curie@mail.com', '$2y$13$FictifHashPourExemple123456789', 'Curie', 'Marie', '0611223344', 'Mérignac', 'France', '45 Avenue de la Marne', 2),
-(4, 'lucas.martin@mail.com', '$2y$13$FictifHashPourExemple123456789', 'Martin', 'Lucas', '0677889900', 'Bordeaux', 'France', '8 Rue Sainte-Catherine', 2);
+INSERT INTO utilisateur (utilisateur_id, email, password, nom, prenom, telephone, ville, pays, adresse_postale, role_id, actif) VALUES
+(2, 'jean.dupont@mail.com', '$2y$13$FictifHashPourExemple123456789', 'Dupont', 'Jean', '0601020304', 'Bordeaux', 'France', '12 Rue de la Rousselle', 2, TRUE),
+(3, 'marie.curie@mail.com', '$2y$13$FictifHashPourExemple123456789', 'Curie', 'Marie', '0611223344', 'Mérignac', 'France', '45 Avenue de la Marne', 2, TRUE),
+(4, 'lucas.martin@mail.com', '$2y$13$FictifHashPourExemple123456789', 'Martin', 'Lucas', '0677889900', 'Bordeaux', 'France', '8 Rue Sainte-Catherine', 2, TRUE);
 
 INSERT INTO avis (avis_id, note, description, statut, utilisateur_id) VALUES
 (1, 5, 'Prestation incroyable pour notre repas de Noël !', 'Validé', 3),
@@ -152,7 +171,9 @@ INSERT INTO menu (menu_id, titre, nombre_personne_minimum, prix_par_personne, re
 (9, 'Vegan Burger Party', 1, 1600, 'Végan', 'Burger 100% végétal et frites', 45, 5, 3),
 (10, 'Douceur Sans Gluten', 2, 2150, 'Sans Gluten', 'Plat adapté aux intolérances', 15, 1, 4);
 
-
+-- =========================================================================
+-- 5. RE-SYNCHRONISATION DES SÉQUENCES POSTGRESQL
+-- =========================================================================
 SELECT setval('regime_regime_id_seq', (SELECT MAX(regime_id) FROM regime));
 SELECT setval('theme_theme_id_seq', (SELECT MAX(theme_id) FROM theme));
 SELECT setval('utilisateur_utilisateur_id_seq', (SELECT MAX(utilisateur_id) FROM utilisateur));

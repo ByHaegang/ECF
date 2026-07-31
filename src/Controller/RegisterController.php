@@ -62,7 +62,6 @@ class RegisterController extends AbstractController
 
             // Envoi des données à la base de données via le DAO
             try {
-                // On appelle la fonction du DAO pour insérer l'utilisateur
                 $utilisateur->ajouterUtilisateur($nom, $prenom, $gsm, $email, $adresse, $ville, $pays, $HashedPassword);
 
                 // TODO: Envoi du mail de bienvenue ici si besoin

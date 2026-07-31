@@ -89,7 +89,6 @@ class UtilisateurDAO
 
     /**
      * Ajoute un nouvel utilisateur à la base de données.
-     *
      * @param string $nom Le nom de famille de l'utilisateur.
      * @param string $prenom Le prénom de l'utilisateur.
      * @param string $gsm Le numéro de téléphone (GSM).

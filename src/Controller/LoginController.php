@@ -41,10 +41,9 @@ class LoginController extends AbstractController
             // On appelle la fonction du DAO pour connecter l'utilisateur
             $hashedpassword = $utilisateur->getpassword($email);
             if (password_verify($password, $hashedpassword)) {
-                // On récupère la session depuis la requête
                 $session = $request->getSession();
 
-                // On stocke les informations de l'utilisateur (son ID et son Email)
+                // On stocke les informations de l'utilisateur
                 $session->set('user_email', $utilisateurExistant['email']);
                 $session->set('user_prenom', $utilisateurExistant['prenom']);
                 $session->set('user_nom', $utilisateurExistant['nom']);
