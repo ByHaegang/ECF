@@ -9,13 +9,13 @@
 {% endblock %}
 
 {% block body %}
-{% for label, messages in app.flashes %}
-    {% for message in messages %}
-        <div class="{{ label }}">
-            {{ message }}
-        </div>
+	{% for label, messages in app.flashes %}
+		{% for message in messages %}
+			<div class="{{ label }}">
+				{{ message }}
+			</div>
+		{% endfor %}
 	{% endfor %}
-{% endfor %}
 	<div class="espaceUtilisateur">
 
 		<div class="colonne-gauche">
@@ -54,73 +54,74 @@
 				<h3>Mes Commandes</h3>
 				{% if commandes is not empty %}
 					<table class="table-perso">
-    <thead>
-        <tr>
-            <th>N°</th>
-            <th>Prestation</th>
-            <th>Personnes</th> 
-            <th>Statut</th>
-            <th>Total</th>
-            <th>Actions</th> 
-        </tr>
-    </thead>
-    <tbody>
-        {% for commande in commandes %}
-            <tr>
-                <td>#{{ commande.commande_id }}</td>
-                <td>Le {{ commande.date_prestation }} à {{ commande.heure_livraison }}</td>
-                <td>{{ commande.nombre_personne }}</td>
-                <td>{{ commande.statut }}</td>
-                <td>
-                    <strong>{{ (commande.prix_menu / 100) }} €</strong>
-                </td>
-                
-                <td>
-                    {% if commande.statut == 'En attente' %}
-                        <button type="button" title="Modifier">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
-                        </button>
-                        <a href="{{ path('app_annuler_commande', {'id': commande.commande_id}) }}" 
-                            onclick="return confirm('Êtes-vous sûr de vouloir annuler la commande #{{ commande.commande_id }} ?');" 
-                            title="Annuler"
-                            style="color: inherit; text-decoration: none;">
-                            <button type="button" style="cursor: pointer;">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                            </button>
-                        </a>
-                    {% endif %}
-                </td>
-            </tr>
-            {% if commande.statut == 'En attente' %}
-            <tr id="form-modif-{{ commande.commande_id }}" class="hide">
-                <td colspan="6">
-                    
-                    <form method="POST" action="{{ path('app_modifier_commande', {'id': commande.commande_id}) }}">
-                        
-                        <div>
-                            <label>Date :</label>
-                            <input type="date" name="date_prestation" value="{{ commande.date_prestation }}" required>
-                        </div>
-                        <div>
-                            <label>Heure :</label>
-                            <input type="time" name="heure_livraison" value="{{ commande.heure_livraison }}" required>
-                        </div>
-                        <div>
-                            <label>Personnes :</label>
-                            <input type="number" name="nombre_personne" value="{{ commande.nombre_personne }}" min="1" required style="width: 80px;">
-                        </div>
-                        <button type="submit">
-                            Valider
-                        </button>
-                    </form>
+						<thead>
+							<tr>
+								<th>N°</th>
+								<th>Prestation</th>
+								<th>Personnes</th>
+								<th>Statut</th>
+								<th>Total</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for commande in commandes %}
+								<tr>
+									<td>#{{ commande.commande_id }}</td>
+									<td>Le
+										{{ commande.date_prestation }}
+										à
+										{{ commande.heure_livraison }}</td>
+									<td>{{ commande.nombre_personne }}</td>
+									<td>{{ commande.statut }}</td>
+									<td>
+										<strong>{{ (commande.prix_menu / 100) }}
+											€</strong>
+									</td>
 
-                </td>
-            </tr>
-            {% endif %}
+									<td>
+										{% if commande.statut == 'En attente' %}
+											<button type="button" class="btn-modifier" title="Modifier">
+												<svg width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+											</button>
+											<a href="{{ path('app_annuler_commande', {'id': commande.commande_id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir annuler la commande #{{ commande.commande_id }} ?');" title="Annuler" style="color: inherit; text-decoration: none;">
+												<button type="button" style="cursor: pointer;">
+													<svg width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+												</button>
+											</a>
+										{% endif %}
+									</td>
+								</tr>
+								{% if commande.statut == 'En attente' %}
+									<tr id="form-modif-{{ commande.commande_id }}" class="hide">
+										<td colspan="6">
 
-        {% endfor %}
-    </tbody>
-</table>
+											<form method="POST" action="{{ path('app_modifier_commande', {'id': commande.commande_id}) }}">
+
+												<div>
+													<label>Date :</label>
+													<input type="date" name="date_prestation" value="{{ commande.date_prestation }}" required>
+												</div>
+												<div>
+													<label>Heure :</label>
+													<input type="time" name="heure_livraison" value="{{ commande.heure_livraison }}" required>
+												</div>
+												<div>
+													<label>Personnes :</label>
+													<input type="number" name="nombre_personne" value="{{ commande.nombre_personne }}" min="1" required style="width: 80px;">
+												</div>
+												<button type="submit">
+													Valider
+												</button>
+											</form>
+
+										</td>
+									</tr>
+								{% endif %}
+
+							{% endfor %}
+						</tbody>
+					</table>
 				{% else %}
 					<p>Aucune commande enregistrée.</p>
 				{% endif %}
@@ -145,8 +146,13 @@
 			</div>
 
 		</div>
-
 	</div>
+
+	{% block javascripts %}
+		{{ parent() }}
+		<script type="module">
+			import 'boutonModifier';
+		</script>
+	{% endblock %}
+
 {% endblock %}
-
-

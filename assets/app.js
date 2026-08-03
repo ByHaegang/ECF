@@ -7,5 +7,7 @@ import "./stimulus_bootstrap.js";
  */
 // @ts-ignore
 import "./styles/app.css";
+import "./boutonDetails.js";
+import "./boutonModifier.js";
 
 console.log("This log comes from assets/app.js - welcome to AssetMapper! 🎉");

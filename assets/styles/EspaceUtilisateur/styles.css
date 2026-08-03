@@ -56,6 +56,10 @@
     transition: background-color 0.3s ease;
 }
 
+.hide {
+    display: none;
+}
+
 .separateur {
     border: 0;
     border-top: 2px solid #511d15;
