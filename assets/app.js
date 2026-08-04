@@ -9,5 +9,6 @@ import "./stimulus_bootstrap.js";
 import "./styles/app.css";
 import "./boutonDetails.js";
 import "./boutonModifier.js";
+import "./menuBurger.js";
 
 console.log("This log comes from assets/app.js - welcome to AssetMapper! 🎉");

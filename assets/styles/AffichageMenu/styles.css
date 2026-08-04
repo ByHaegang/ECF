@@ -66,6 +66,16 @@
     max-width: 100rem;
 }
 
+.affichageMenu .menu h3 {
+    color: #000000;
+    font-weight: bold;
+}
+
+.affichageMenu .menu p {
+    color: #000000;
+    font-weight: medium;
+}
+
 .affichageMenu .carte {
     background-color: #ffffff;
     border: 2px solid #7e583a;

@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>
 			{% block title %}Vite et Gourmand
 			{% endblock %}
 		</title>
-		{% block stylesheets %}{% endblock %}
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet"> {% block stylesheets %}{% endblock %}
 
 		{% block javascripts %}
 			{% block importmap %}
@@ -22,18 +26,39 @@
 		{% endif %}
 	</head>
 	<body>
+
 		<header>
-			<h1>
+			<div class="logo-container">
 				<img src="{{ asset('images/img.png') }}" alt="Logo Vite et Gourmand" class="logo">
+			</div>
+
+			<button class="burger-btn" aria-label="Ouvrir le menu">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu-icon lucide-menu"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+			</button>
+
+			<nav class="navbar">
+				<hr class="navbar-separateur">
 				<a href="/">Accueil</a>
-				<a href="/register">Inscription</a>
+				<hr class="navbar-separateur">
 				<a href="/affichage-menu">Carte des menus</a>
+				<hr class="navbar-separateur">
 				<a href="/EspaceCommande">Commander</a>
+				<hr class="navbar-separateur">
 				<a href="/espace_utilisateur">Espace Utilisateur</a>
+				<hr class="navbar-separateur">
+				<a href="/register">Inscription</a>
+				<hr class="navbar-separateur">
 				<a href="/login">Se Connecter</a>
-			</h1>
-		</nav>
+			</nav>
+		</header>
+
+		<main>
+			{% block body %}{% endblock %}
+		</main>
+
+		<footer>
+			<p>&copy; 2026 Vite et Gourmand. Tous droits réservés.</p>
+		</footer>
+
 	</body>
-</html></header><main>
-{% block body %}{% endblock %}</main><footer>
-<p>&copy; 2026 My App. All rights reserved.</p></footer></body></html>
+</html>

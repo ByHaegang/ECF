@@ -1,6 +1,5 @@
 document.addEventListener("click", function (event) {
     const target = event.target;
-
     if (!target || !(target instanceof Element)) return;
 
     const bouton = target.closest(".btn-modifier");

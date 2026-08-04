@@ -94,3 +94,19 @@
     border-bottom: none;
     margin-bottom: 0;
 }
+
+/*
+MEDIA QUERY (MOBILE / TABLETTE)
+*/
+@media screen and (max-width: 1024px) {
+    .espaceUtilisateur {
+        flex-direction: column;
+        align-items: center;
+        padding: 5vh 2vw;
+    }
+
+    .colonne-gauche,
+    .colonne-droite {
+        width: 90vw;
+    }
+}
