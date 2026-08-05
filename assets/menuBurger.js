@@ -1,8 +1,10 @@
-const burgerBtn = document.querySelector(".burger-btn");
-const navbar = document.querySelector(".navbar");
+document.addEventListener("DOMContentLoaded", () => {
+    const burgerBtn = document.querySelector(".burger-btn");
+    const navbar = document.querySelector(".navbar");
 
-if (burgerBtn && navbar) {
-    burgerBtn.addEventListener("click", () => {
-        navbar.classList.toggle("active");
-    });
-}
+    if (burgerBtn && navbar) {
+        burgerBtn.addEventListener("click", () => {
+            navbar.classList.toggle("active");
+        });
+    }
+});

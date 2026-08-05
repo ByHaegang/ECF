@@ -1,21 +1,19 @@
-document.addEventListener("click", function (event) {
-    const target = event.target;
-    if (!target || !(target instanceof HTMLElement)) return;
+document.addEventListener("DOMContentLoaded", () => {
+    const boutonsDetails = document.querySelectorAll(".btn-details");
 
-    const bouton = target.closest(".btn-details");
-    if (!bouton) return;
+    boutonsDetails.forEach((bouton) => {
+        bouton.addEventListener("click", () => {
+            const detailsDiv = bouton
+                .closest(".carte")
+                ?.querySelector(".menu-details");
 
-    const carteParent = bouton.closest(".carte");
-    if (!carteParent) return;
+            if (detailsDiv) {
+                const isHidden = detailsDiv.classList.toggle("hide");
 
-    const detailsDiv = carteParent.querySelector(".menu-details");
-    if (!detailsDiv) return;
-
-    detailsDiv.classList.toggle("hide");
-
-    if (detailsDiv.classList.contains("hide")) {
-        bouton.textContent = "Détails";
-    } else {
-        bouton.textContent = "Masquer les détails";
-    }
+                bouton.textContent = isHidden
+                    ? "Détails"
+                    : "Masquer les détails";
+            }
+        });
+    });
 });
