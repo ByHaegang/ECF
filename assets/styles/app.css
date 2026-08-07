@@ -113,10 +113,24 @@ header {
     color: var(--black);
     padding: 0.5rem 0.8rem;
     border-radius: 4px;
+}
+.navbar form button {
+    text-decoration: none;
+    font-size: 1.05rem;
+    font-family: inherit;
+    font-weight: inherit;
+    color: var(--black);
+    padding: 0.5rem 0.8rem;
+    border-radius: 4px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    margin: 0;
     transition: all 0.2s ease-in-out;
 }
 
-.navbar a:hover {
+.navbar a:hover,
+.navbar form button:hover {
     color: var(--hover-blue);
 }
 
@@ -161,24 +175,20 @@ MEDIA QUERY (MOBILE / TABLETTE)
     }
 
     /* Style des liens */
-    .navbar a {
+    .navbar a,
+    .navbar form .btn {
+        display: block;
+        width: 100%;
+        text-align: left;
         padding: 0.85rem 1.5rem;
         font-size: 1rem;
         font-weight: 600;
         color: var(--black);
-
-        transition:
-            background-color 0.2s ease,
-            padding-left 0.2s ease;
     }
 
-    .navbar a:last-child {
+    .navbar a:last-child,
+    .navbar form:last-child .btn {
         border-bottom: none;
-    }
-
-    .navbar a:hover,
-    .navbar a:active {
-        padding-left: 1.8rem;
     }
 
     .navbar.active {

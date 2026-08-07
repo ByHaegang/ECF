@@ -16,10 +16,10 @@
 			</div>
 		{% endfor %}
 	{% endfor %}
+
 	<div class="espaceUtilisateur">
 
 		<div class="colonne-gauche">
-
 			<div class="bloc-marron">
 				<div class="en-tete-profil">
 					<h1>Espace Utilisateur</h1>
@@ -27,18 +27,26 @@
 						<strong>{{ utilisateur.prenom }}
 							{{ utilisateur.nom }}</strong>
 						!</p>
-					<button>Se déconnecter</button>
+					<form action="{{ path('app_deconnexion') }}" method="POST" style="display: inline;">
+						<input type="hidden" name="_token" value="{{ csrf_token('logout') }}">
+						<button type="submit" class="btn">
+							Se déconnecter
+						</button>
+					</form>
 				</div>
 
 				<hr class="separateur">
+
 				<div class="coordonnees">
 					<h3>Mes Coordonnées</h3>
 					<p>
 						<strong>Email :</strong><br>
-						{{ utilisateur.email }}</p>
+						{{ utilisateur.email }}
+					</p>
 					<p>
 						<strong>Téléphone :</strong><br>
-						{{ utilisateur.telephone }}</p>
+						{{ utilisateur.telephone }}
+					</p>
 					<p>
 						<strong>Adresse :</strong><br>
 						{{ utilisateur.adresse_postale }}<br>
@@ -46,7 +54,6 @@
 					</p>
 				</div>
 			</div>
-
 		</div>
 
 		<div class="colonne-droite">
@@ -78,26 +85,29 @@
 										<strong>{{ (commande.prix_menu / 100) }}
 											€</strong>
 									</td>
-
 									<td>
 										{% if commande.statut == 'En attente' %}
-											<button type="button" class="btn-modifier" title="Modifier">
-												<svg width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
-											</button>
-											<a href="{{ path('app_annuler_commande', {'id': commande.commande_id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir annuler la commande #{{ commande.commande_id }} ?');" title="Annuler" style="color: inherit; text-decoration: none;">
-												<button type="button" style="cursor: pointer;">
-													<svg width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+											<div class="actions-container">
+												<button type="button" class="actions btn-modifier" title="Modifier">
+													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
 												</button>
-											</a>
+
+												<div class="separateur-vertical"></div>
+
+												<a href="{{ path('app_annuler_commande', {'id': commande.commande_id}) }}" onclick="return confirm('Êtes-vous sûr de vouloir annuler la commande #{{ commande.commande_id }} ?');" title="Annuler" style="color: inherit; text-decoration: none;">
+													<button class="actions" type="button">
+														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+													</button>
+												</a>
+											</div>
 										{% endif %}
 									</td>
 								</tr>
+
 								{% if commande.statut == 'En attente' %}
 									<tr id="form-modif-{{ commande.commande_id }}" class="hide">
 										<td colspan="6">
-
-											<form method="POST" action="{{ path('app_modifier_commande', {'id': commande.commande_id}) }}">
-
+											<form method="POST" action="{{ path('app_modifier_commande', {'id': commande.commande_id}) }}" class="form-modification">
 												<div>
 													<label>Date :</label>
 													<input type="date" name="date_prestation" value="{{ commande.date_prestation }}" required>
@@ -110,11 +120,8 @@
 													<label>Personnes :</label>
 													<input type="number" name="nombre_personne" value="{{ commande.nombre_personne }}" min="1" required style="width: 80px;">
 												</div>
-												<button type="submit">
-													Valider
-												</button>
+												<button class="btn" type="submit">Valider</button>
 											</form>
-
 										</td>
 									</tr>
 								{% endif %}
@@ -126,6 +133,7 @@
 					<p>Aucune commande enregistrée.</p>
 				{% endif %}
 			</div>
+
 			<div class="bloc-marron">
 				<h3>Mes Avis</h3>
 				{% if avis is not empty %}
@@ -144,8 +152,7 @@
 					<p>Vous n'avez pas encore laissé d'avis.</p>
 				{% endif %}
 			</div>
-
 		</div>
-	</div>
 
+	</div>
 {% endblock %}

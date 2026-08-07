@@ -49,7 +49,16 @@
 				<hr class="navbar-separateur">
 				<a href="/register">Inscription</a>
 				<hr class="navbar-separateur">
-				<a href="/login">Se Connecter</a>
+				{% if app.session.get('user_email') %}
+					<form action="{{ path('app_deconnexion') }}" method="POST" style="display: inline; margin: 0; padding: 0;">
+						<input type="hidden" name="_token" value="{{ csrf_token('logout') }}">
+						<button type="submit" class="btn">
+							Se déconnecter
+						</button>
+					</form>
+				{% else %}
+					<a href="{{ path('app_login') }}">Se connecter</a>
+				{% endif %}
 			</nav>
 		</header>
 

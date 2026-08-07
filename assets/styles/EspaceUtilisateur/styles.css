@@ -1,3 +1,7 @@
+/*
+1. LAYOUT PRINCIPAL & GRILLE
+*/
+
 .espaceUtilisateur {
     display: flex;
     flex-direction: row;
@@ -16,6 +20,10 @@
     width: 45vw;
     gap: 3vh;
 }
+
+/*
+2. CONTENEURS RÉUTILISABLES & SÉPARATEURS
+*/
 
 .bloc-marron {
     display: flex;
@@ -41,6 +49,33 @@
     line-height: 1.5;
 }
 
+.separateur {
+    border: 0;
+    border-top: 2px solid #511d15;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.separateur-vertical {
+    width: 2px;
+    height: 1.5rem;
+    background-color: #ffffff;
+}
+
+/*
+3. BOUTONS (STYLES DE BASE)
+*/
+
+.btn {
+    background-color: #511d15;
+    color: #ffffff;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
 .btn-action {
     display: inline-block;
     text-decoration: none;
@@ -56,16 +91,69 @@
     transition: background-color 0.3s ease;
 }
 
-.hide {
-    display: none;
+/*
+4. FORMULAIRES
+*/
+
+/* Formulaire autonome classique */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #7e583a;
+    border: 3px solid #511d15;
+    padding: 30px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
 }
 
-.separateur {
-    border: 0;
-    border-top: 2px solid #511d15;
-    width: 100%;
-    margin: 1rem 0;
+/* Formulaire inline de modification (dans le tableau) */
+.form-modification {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    background-color: rgba(0, 0, 0, 0.15);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin: 0.5rem 0;
 }
+
+.form-modification div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.form-modification label {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.form-modification input {
+    padding: 0.5rem;
+    border: 1px solid #511d15;
+    border-radius: 0.3rem;
+    font-family: inherit;
+    height: 38px;
+    box-sizing: border-box;
+}
+
+.form-modification .btn {
+    height: 38px;
+    padding: 0 1.2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*
+5. TABLEAU DES COMMANDES & ICÔNES
+*/
 
 .table-perso {
     width: 100%;
@@ -84,6 +172,31 @@
     background-color: #511d15;
 }
 
+/* Conteneur d'icônes d'action */
+.actions-container {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.table-perso td button.actions {
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
+    color: #ffffff;
+}
+
+svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/*
+6. SECTION AVIS
+*/
+
 .un-avis {
     border-bottom: 1px dashed #511d15;
     padding-bottom: 1rem;
@@ -96,8 +209,17 @@
 }
 
 /*
-MEDIA QUERY (MOBILE / TABLETTE)
+7. UTILITAIRES
 */
+
+.hide {
+    display: none !important;
+}
+
+/*
+8. MEDIA QUERIES (RESPONSIVE)
+*/
+
 @media screen and (max-width: 1024px) {
     .espaceUtilisateur {
         flex-direction: column;
