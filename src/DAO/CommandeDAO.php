@@ -37,7 +37,7 @@ class CommandeDAO
 
         $statement = $this->pdo->prepare($sql);
 
-        return $statement->execute([
+        $success = $statement->execute([
             'date_commande'   => $dateCommande,
             'date_prestation' => $datePrestation,
             'heure_livraison' => $heurePrestation,
@@ -47,6 +47,12 @@ class CommandeDAO
             'statut'          => $statut,
             'utilisateur_id'  => $utilisateurId
         ]);
+
+        if ($success) {
+            return (int) $this->pdo->lastInsertId();
+        }
+
+        return false;
     }
 
     /**

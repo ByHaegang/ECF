@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\DAO\MenuDAO;
 use App\DAO\UtilisateurDAO;
 use App\DAO\CommandeDAO;
+use App\Document\StatsCommandes;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,20 +17,24 @@ use Symfony\Component\Mime\Email;
 class EspaceCommandeController extends AbstractController
 {
     #[Route('/EspaceCommande', name: 'app_espacecommande')]
-    public function index(Request $request, CommandeDAO $commande, MenuDAO $menuDAO, UtilisateurDAO $user, MailerInterface $mailer): Response
-    {
+    public function index(
+        Request $request, 
+        CommandeDAO $commande, 
+        MenuDAO $menuDAO, 
+        UtilisateurDAO $user, 
+        MailerInterface $mailer,
+        DocumentManager $dm
+    ): Response {
 
         $menuIdSelectionne = $request->query->get('menu_id');
         $menus = $menuDAO->getAllMenus();
 
-        if ($request->isMethod('POST')) 
-            {
+        if ($request->isMethod('POST')) {
             
             if (!$this->isCsrfTokenValid('espaceCommande-form', $request->request->get('_token'))) {
                 $this->addFlash('attention', 'Requête invalide ou session expirée (Erreur CSRF).');
                 return $this->redirectToRoute('app_espacecommande');
             }
-
 
             // Récupération informations de la commande
             $name = $request->request->get('name');
@@ -41,9 +47,8 @@ class EspaceCommandeController extends AbstractController
             $menuId = $request->request->get('menu');
             $nombrePersonne = $request->request->get('nombrePersonne');
 
-            if ( $menuId === 'Tous les menus') {
+            if ($menuId === 'Tous les menus') {
                 $this->addFlash('attention', 'Veuillez sélectionner un menu.');
-
                 return $this->render('espaceCommande/index.html.twig', [
                     'menus' => $menus,
                     'menu_id_selectionne' => $menuIdSelectionne
@@ -51,9 +56,7 @@ class EspaceCommandeController extends AbstractController
             };
 
             if (empty($name) || empty($email) || empty($prenom) || empty($adressePrestation) || empty($heurePrestation) || empty($datePrestation) || empty($gsm) || empty($menuId) || empty($nombrePersonne)) {
-                
                 $this->addFlash('attention', 'Tous les champs ne sont pas remplis.');
-                
                 return $this->render('espaceCommande/index.html.twig', [
                     'menus' => $menus,
                     'menu_id_selectionne' => $menuIdSelectionne
@@ -65,7 +68,6 @@ class EspaceCommandeController extends AbstractController
             $prixTotalCentimes = $prixUnitaireCentimes * $nombrePersonne;
 
             $userData = $user->getUtilisateurByEmail($email);
-            
             $userId = $userData ? $userData['utilisateur_id'] : null;
 
             if ($userId === null) {
@@ -76,12 +78,28 @@ class EspaceCommandeController extends AbstractController
                 ]);
             }
 
-            // Insertion de la commande
-            $commande->ajouterCommande($userId, $menuId, $nombrePersonne, $datePrestation, $heurePrestation, $prixTotalCentimes);
+
+            $nouvelleCommandeId = $commande->ajouterCommande($userId, $menuId, $nombrePersonne, $datePrestation, $heurePrestation, $prixTotalCentimes);
             
+            $menuTitle = 'Menu Inconnu';
+            foreach ($menus as $m) {
+                if (isset($m['menu_id']) && (int)$m['menu_id'] === (int)$menuId) {
+                    $menuTitle = $m['titre'] ?? $m['nom'] ?? 'Menu Inconnu';
+                    break;
+                }
+            }
+
+            $stat = new StatsCommandes();
+            $stat->setOrderId((int) ($nouvelleCommandeId ?? 0));
+            $stat->setMenuId((int) $menuId);
+            $stat->setMenuTitle($menuTitle);
+            $stat->setPrice($prixTotalCentimes / 100);
+
+            $dm->persist($stat);
+            $dm->flush();
+
             $this->addFlash('success', 'Votre commande a été enregistrée avec succès !');
 
-            // On re-rend la page du formulaire avec les menus
             return $this->render('espaceCommande/index.html.twig', [
                 'menus' => $menus,
                 'menu_id_selectionne' => null
